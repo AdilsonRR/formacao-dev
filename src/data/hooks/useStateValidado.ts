@@ -4,7 +4,7 @@ export default function useStateValidado(valorInicial: any, funcaoValidacao: (e:
     const [valor, setValor] = useState(valorInicial);
     const [validado, setValidado] = useState(false);
     function setValorValidado(novoValor: any) {
-        setValor(valor)
+        setValor(novoValor)
         setValidado(funcaoValidacao(novoValor))
     }
     return [valor, setValorValidado, validado];
