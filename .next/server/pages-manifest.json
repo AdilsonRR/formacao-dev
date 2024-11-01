@@ -1,0 +1,11 @@
+<<<<<<< Updated upstream
+{}
+=======
+{
+  "/_app": "pages/_app.js",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/personalizados/senhas": "pages/personalizados/senhas.js",
+  "/": "pages/index.js"
+}
+>>>>>>> Stashed changes
