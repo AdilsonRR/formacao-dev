@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 export interface BotaoProps {
     icone?: any;
     texto?: string;
@@ -9,8 +11,8 @@ export interface BotaoProps {
 }
 
 export default function Botao(props: BotaoProps) {
-
     function tamanho() {
+        
         if (props.tamanho === "xs") return 9;
         if (props.tamanho === "lg") return 14;
         if (props.tamanho === "xl") return 16;
@@ -18,7 +20,6 @@ export default function Botao(props: BotaoProps) {
         if (props.tamanho === "3xl") return 24;
         return 11;
     }
-
     return (
         <button
             className={`

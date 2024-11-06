@@ -1,8 +1,13 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-
+import { TemaProvider } from "@/data/context/TemaProvader";
+import { MenuProvider } from "@/data/context/MenuProvider";
 export default function App({ Component, pageProps }: AppProps) {
-    return (
-             <Component {...pageProps} />
-    );
+  return (
+    <TemaProvider>
+      <MenuProvider>
+        <Component {...pageProps} />
+      </MenuProvider>
+    </TemaProvider>
+  );
 }
