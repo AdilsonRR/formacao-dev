@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React from "react";
 
 export interface BotaoProps {
     icone?: any;
@@ -10,7 +10,7 @@ export interface BotaoProps {
     className?: string;
 }
 
-export default function Botao(props: BotaoProps) {
+function BotaoMemoizado(props: BotaoProps) {
     function tamanho() {
         
         if (props.tamanho === "xs") return 9;
@@ -20,6 +20,8 @@ export default function Botao(props: BotaoProps) {
         if (props.tamanho === "3xl") return 24;
         return 11;
     }
+    console.log("Renderizei");
+    
     return (
         <button
             className={`
@@ -37,3 +39,4 @@ export default function Botao(props: BotaoProps) {
         </button>
     );
 }
+export default React.memo(BotaoMemoizado)

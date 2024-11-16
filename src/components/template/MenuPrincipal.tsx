@@ -4,66 +4,22 @@ import Logo from "./Logo";
 import MenuPrincipalItem from "./MenuPrincipalItem";
 import MenuPrincipalSecao from "./MenuPrincipalSecao";
 import Flex from "./Flex";
-import {
-  IconAppWindow,
-  IconArrowLeftRight,
-  IconDimensions,
-  IconLetterC,
-  IconLetterCase,
-  IconLock,
-  IconMathGreater,
-  IconMenu,
-  IconNumbers,
-  IconRefreshAlert,
-  IconSection,
-  IconUser,
-  IconWritingSign,
-  IconX,
-} from "@tabler/icons-react";
-import Titulo from "./Titulo";
-import useToggle from "@/data/hooks/useToggle";
-import useTamanhoJanela from "@/data/hooks/useTamanhoJanela";
-import { useEffect } from "react";
-import useBoolean from "@/data/hooks/useBoolean";
+import { IconMenu, IconX } from "@tabler/icons-react";
+import useMenu from "@/data/hooks/useMenu";
 
 export default function MenuPrincipal() {
+  const { secoes, alternarSecao } = useMenu();
+  const { mini, toggleMini } = useMenu();
 
-  const secoes = [
-    {
-      titulo: "Essenciais",
-      aberta: false,
-      itens: [
-        { titulo: "Contador",url: "/essenciais/contador",tag: "useState",icone: <IconNumbers />,},
-        {titulo: "Votaçao",url: "/essenciais/votacao",tag: "useState",icone: <IconUser />,},
-        {titulo: "Consulta à API",url: "/essenciais/consultaAPI",tag: "useEffct",icone: <IconArrowLeftRight />,},
-        {titulo: "Maior",url: "/essenciais/maior",tag: "useEffct",icone: <IconMathGreater />,},
-        {titulo: "Contagem Caracteres",url: "/essenciais/contagemCaracteres",tag: "useEffct",icone: <IconLetterCase />,},
-        {titulo: "State Vs Refenciais",url: "/essenciais/stateVsRef",tag: "useRef",icone: <IconRefreshAlert />,},
-        {titulo: "Referenciando Elemento",url: "/essenciais/refElemento",tag: "UseRef",icone: <IconSection />,},
-        {titulo: "Contagem Caracateres ",url: "/essenciais/contagemCaractererisRef",tag: "UseRef",icone: <IconLetterCase />,},
-      ],
-    },
-    {
-      titulo: "Personalizados",
-      aberta: true,
-      itens: [
-        { titulo: "Modal",url: "/personalizados/modal",tag: "personalizado",icone: <IconAppWindow />,},
-        { titulo: "Tamanho da Janela",url: "/personalizados/tamanhoJanela",tag: "personalizados",icone: <IconDimensions />,},
-        { titulo: "Validando Senha",url: "/personalizados/senhas",tag: "personalizados",icone: <IconLock />,},
-      ],
-    },
-    
-  ];
-  const [mini,toggleMini,miniTrue] = useBoolean(false);
-  const tamanho = useTamanhoJanela()
-  useEffect(()=>{
-    if(tamanho==="md"||tamanho==="sm"){
-      miniTrue()
-    }
-  },[tamanho])
   function renderizarSecoes() {
     return secoes.map((secao: MenuSecao) => (
-      <MenuPrincipalSecao key={secao.titulo}titulo={secao.titulo} mini={mini} aberta={secao.aberta}>
+      <MenuPrincipalSecao
+        key={secao.titulo}
+        titulo={secao.titulo}
+        mini={mini}
+        aberta={secao.aberta}
+        onClick={()=>alternarSecao(secao)}
+      >
         {renderizarItens(secao)}
       </MenuPrincipalSecao>
     ));
@@ -78,6 +34,7 @@ export default function MenuPrincipal() {
         tag={item.tag}
         url={item.url}
         mini={mini}
+        selecionado={item.selecionado}
       />
     ));
   }
@@ -95,7 +52,7 @@ export default function MenuPrincipal() {
       <Flex center className="m-7">
         {!mini && <Logo />}
         <div className="cursor-pointer" onClick={toggleMini}>
-          {mini?<IconMenu/> : <IconX/>}
+          {mini ? <IconMenu /> : <IconX />}
         </div>
       </Flex>
       <nav className="flex flex-col gap-4 m-7">{renderizarSecoes()}</nav>
